@@ -4,11 +4,17 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 
 # añadir app/ al PYTHONPATH
+<<<<<<< HEAD
 # añadir app/ al PYTHONPATH
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from app.core.database import Base       # tu Base
 import app.models                       # importa todos tus modelos
 import app.models.invitation            # importa también Invitation
+=======
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from app.core.database import Base       # tu Base
+import app.models                       # importa todos tus modelos
+>>>>>>> f7a6a7b2d1e121e2b4dcf655bc90cd4169040d64
 
 config = context.config
 fileConfig(config.config_file_name) # type: ignore
