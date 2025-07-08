@@ -1,0 +1,15 @@
+# Entornos Python
+backend/.venv/
+**/__pycache__/
+*.py[cod]
+
+# Variables de entorno
+backend/.env
+
+# Data de Postgres
+pgdata/
+
+# Logs y OS
+*.log
+.DS_Store
+Thumbs.db
