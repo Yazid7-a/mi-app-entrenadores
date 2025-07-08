@@ -1,7 +1,7 @@
 # backend/app/core/config.py
 
 from typing import List
-from pydantic import BaseSettings, AnyHttpUrl, validator
+from pydantic import BaseSettings, Field, validator
 
 class Settings(BaseSettings):
     # Nombre y versión de la API
@@ -9,11 +9,11 @@ class Settings(BaseSettings):
     PROJECT_VERSION: str = "0.1.0-beta"
 
     # Orígenes permitidos para CORS; en desarrollo suele ser localhost:3000
-    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = ["http://localhost:3000"]
+    BACKEND_CORS_ORIGINS: List[str] = ["http://localhost:3000"]
 
-    # Variables obligatorias en .env
-    DATABASE_URL: str
-    JWT_SECRET_KEY: str
+    # Estas dos son obligatorias, se leen de .env
+    DATABASE_URL: str = Field(..., env="DATABASE_URL")
+    JWT_SECRET_KEY: str = Field(..., env="JWT_SECRET_KEY")
 
     # JWT
     ALGORITHM: str = "HS256"
@@ -26,11 +26,12 @@ class Settings(BaseSettings):
     @validator("BACKEND_CORS_ORIGINS", pre=True)
     def assemble_cors_origins(cls, v):
         """
-        Permite definir BACKEND_CORS_ORIGINS en .env como:
+        Permite definir BACKEND_CORS_ORIGINS en .env como
         BACKEND_CORS_ORIGINS=http://localhost:3000,https://mi-dominio.com
         """
         if isinstance(v, str):
             return [i.strip() for i in v.split(",") if i.strip()]
         return v
 
-settings = Settings()
+# El # type: ignore suprime el aviso de que faltan parámetros en el __init__ de BaseSettings
+settings = Settings()  # type: ignore

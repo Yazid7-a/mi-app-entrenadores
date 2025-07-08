@@ -7,7 +7,7 @@ from app.schemas.user import UserCreate, UserRead
 from app.services.auth import create_user, authenticate_user, create_access_token
 from app.core.database import get_db
 
-router = APIRouter(prefix="/auth", tags=["auth"])
+router = APIRouter(tags=["auth"])
 
 
 @router.post("/signup", response_model=UserRead)
